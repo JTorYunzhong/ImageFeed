@@ -3,7 +3,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, add material UI dependency use the following command:    
-install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @emotion/react @emotion/styled
 
 Then, run the development server:
 
