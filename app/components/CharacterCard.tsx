@@ -1,5 +1,3 @@
-import React from "react";
-
 interface Character {
   id: number;
   name: string;

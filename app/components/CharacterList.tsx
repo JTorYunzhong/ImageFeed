@@ -2,18 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import CharacterCard from "./CharacterCard";
-import { fetchCharacters } from "./api";
+import Header from "./Header";
+import { fetchCharacters } from "../api";
 
-interface IProps {
-  maxPage?: number;
-}
-
-const CharacterList = (props: IProps) => {
-  const { maxPage = 1 } = props;
-
+const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState<Boolean>(true);
+  const [page, setPage] = useState<number>(1);
+  const [maxPage, setMaxPage] = useState<number>(1);
 
   useEffect(() => {
     async function getCharacters() {
@@ -21,17 +17,18 @@ const CharacterList = (props: IProps) => {
         setLoading(true);
         const data = await fetchCharacters(page);
         setCharacters(data["results"]);
+        setMaxPage(data["info"]["pages"]);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching character data:", error);
       }
     }
     getCharacters();
-  }, [page]);
+  }, [page, maxPage]);
 
   return (
     <div className="container">
-      <div className="title">Rick and Morty Character Feed</div>
+      <Header headerContent="Rick and Morty Character" />
       <div className="character-feed-container">
         {loading ? (
           <p>Loading...</p>
